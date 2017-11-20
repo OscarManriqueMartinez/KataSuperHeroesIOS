@@ -12,9 +12,12 @@ import Foundation
 class MockSuperHeroesRepository: SuperHeroesRepository {
 
     var superHeroes = [SuperHero]()
+    var wait = 0
 
     override func getAll(_ completion: @escaping ([SuperHero]) -> ()) {
-        completion(superHeroes)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(wait), execute: {
+            completion(self.superHeroes)
+        })
     }
 
     override func getSuperHero(withName name: String, completion: @escaping (SuperHero?) -> ()) {

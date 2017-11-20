@@ -33,6 +33,16 @@ class SuperHeroesViewControllerTests: AcceptanceTestCase {
     }
     
     func testShowSuperHerosWhatThereLoad() {
+        givenThereAreSomeSuperHeroes(7)
+        
+        openSuperHeroesViewController()
+        
+        for hero in repository.superHeroes {
+            tester().waitForView(withAccessibilityLabel: hero.name)
+        }
+    }
+    
+    func testShowSuperHerosIfAreAvenger() {
         givenThereAreSomeSuperHeroes(7, avengers: true)
         
         openSuperHeroesViewController()
@@ -43,6 +53,25 @@ class SuperHeroesViewControllerTests: AcceptanceTestCase {
         }
     }
     
+    func testShowSuperHerosIfAreNotAvenger() {
+        givenThereAreSomeSuperHeroes(2, avengers: false)
+        
+        openSuperHeroesViewController()
+        
+        for hero in repository.superHeroes {
+            tester().waitForAbsenceOfView(withAccessibilityLabel: "\(hero.name) - Avengers Badge")
+            tester().waitForView(withAccessibilityLabel: hero.name)
+        }
+    }
+    
+    func testShowLoadingWhileLoadSuperHero() {
+        givenThereAreSomeSuperHeroes()
+        repository.wait = 4
+        
+        openSuperHeroesViewController()
+        
+        tester().waitForView(withAccessibilityLabel: "LoadingView")
+    }
     
 
     fileprivate func givenThereAreNoSuperHeroes() {
