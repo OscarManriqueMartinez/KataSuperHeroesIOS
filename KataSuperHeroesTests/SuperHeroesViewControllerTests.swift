@@ -23,6 +23,22 @@ class SuperHeroesViewControllerTests: AcceptanceTestCase {
 
         tester().waitForView(withAccessibilityLabel: "¯\\_(ツ)_/¯")
     }
+    
+    func testShowSuperHeroesListIfThereAreSuperHeroes() {
+        givenThereAreSomeSuperHeroes()
+        
+        openSuperHeroesViewController()
+        
+        tester().waitForAbsenceOfView(withAccessibilityLabel: "¯\\_(ツ)_/¯")
+    }
+    
+    func testShowLoadingWhileLoadSuperHero() {
+     
+        
+        
+    }
+    
+    
 
     fileprivate func givenThereAreNoSuperHeroes() {
         _ = givenThereAreSomeSuperHeroes(0)
