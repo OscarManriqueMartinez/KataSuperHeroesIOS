@@ -26,6 +26,12 @@ class SuperHeroDetailViewControllerTest: AcceptanceTestCase {
         tester().waitForView(withAccessibilityLabel: "Description: \(superHero.name)")
     }
     
+    func testShowSuperHeroNameAsTitle() {
+        
+        openSuperHeroDetailViewController()
+        
+        tester().waitForView(withAccessibilityLabel: superHero.name, traits: UIAccessibilityTraitHeader)
+    }
     
     fileprivate func openSuperHeroDetailViewController() {
         
