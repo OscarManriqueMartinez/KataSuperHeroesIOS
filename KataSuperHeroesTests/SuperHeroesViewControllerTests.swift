@@ -73,6 +73,15 @@ class SuperHeroesViewControllerTests: AcceptanceTestCase {
         tester().waitForView(withAccessibilityLabel: "LoadingView")
     }
     
+    
+    func testTransitionToDetailIfThereTapCell() {
+        givenThereAreSomeSuperHeroes()
+        
+        openSuperHeroesViewController()
+        tester().tapView(withAccessibilityLabel: repository.superHeroes[0].name)
+        
+        tester().waitForView(withAccessibilityLabel: repository.superHeroes[0].name, traits: UIAccessibilityTraitHeader)
+    }
 
     fileprivate func givenThereAreNoSuperHeroes() {
         _ = givenThereAreSomeSuperHeroes(0)
