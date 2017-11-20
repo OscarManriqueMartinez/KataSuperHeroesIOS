@@ -32,10 +32,15 @@ class SuperHeroesViewControllerTests: AcceptanceTestCase {
         tester().waitForAbsenceOfView(withAccessibilityLabel: "¯\\_(ツ)_/¯")
     }
     
-    func testShowLoadingWhileLoadSuperHero() {
-     
+    func testShowSuperHerosWhatThereLoad() {
+        givenThereAreSomeSuperHeroes(7, avengers: true)
         
+        openSuperHeroesViewController()
         
+        for hero in repository.superHeroes {
+            tester().waitForView(withAccessibilityLabel: "\(hero.name) - Avengers Badge")
+            tester().waitForView(withAccessibilityLabel: hero.name)
+        }
     }
     
     
